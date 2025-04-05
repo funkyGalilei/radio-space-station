@@ -1,7 +1,10 @@
 
-float y = 0;
-int i = 0;
-float someMotion = 0;
+float y = height/2;           // starting y position of ellipse
+
+int i = 0;                    //used for time
+int amplitude = 40;           // amplitude of ellipse
+float phaseMultiple = 0.01;   // what the time iterator is multiplied by
+float someMotion = 0;         // the end result of sin motion
 int sizeEllipse = 60;
 
 PGraphics pg;
@@ -17,16 +20,16 @@ void draw() {
   colorMode(HSB, 255);
   
   i++;
-  someMotion = sin(i * 0.01) * 40;
+  someMotion = sin(i * phaseMultiple) * amplitude;
   
   pg.beginDraw();
-  pg.clear();
+  pg.clear();      // necessary to reset the graphics object
   pg.fill(150, 255, 150);
   pg.noStroke();
   
-  pg.ellipse(width/2, someMotion, sizeEllipse, sizeEllipse);
+  pg.ellipse(width/2, y + someMotion, sizeEllipse, sizeEllipse);
   pg.endDraw();
   
-  image(pg, 0, height/2);
+  image(pg, 0, 0);
   pg.save("output/something" + nf(i, 4) + ".png");
 }
